@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { GENRES } from "@/lib/genres";
 import type { Language, SongJobResult, VocalGender } from "@/lib/types";
 
@@ -21,37 +21,38 @@ export function SongForm() {
   const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<SongJobResult | null>(null);
-  const [pending, startTransition] = useTransition();
+  const [pending, setPending] = useState(false);
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    startTransition(async () => {
-      try {
-        const res = await fetch("/api/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            genreId,
-            theme,
-            mood,
-            language,
-            vocalGender,
-            title: title || undefined,
-          }),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          setError(data.error || "เกิดข้อผิดพลาด");
-          setResult(null);
-          return;
-        }
-        setResult(data as SongJobResult);
-      } catch {
-        setError("เชื่อมต่อเซิร์ฟเวอร์ไม่สำเร็จ");
+    setPending(true);
+    try {
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          genreId,
+          theme,
+          mood,
+          language,
+          vocalGender,
+          title: title || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "เกิดข้อผิดพลาด");
         setResult(null);
+        return;
       }
-    });
+      setResult(data as SongJobResult);
+    } catch {
+      setError("เชื่อมต่อเซิร์ฟเวอร์ไม่สำเร็จ");
+      setResult(null);
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
