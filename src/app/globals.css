@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #12201c;
+  --ink-soft: #2a3d36;
+  --paper: #f3efe6;
+  --paper-2: #e7e0d1;
+  --band: #0f6b5c;
+  --band-deep: #0a4a40;
+  --signal: #d4552a;
+  --line: rgba(18, 32, 28, 0.14);
+  --glow: rgba(15, 107, 92, 0.18);
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(212, 85, 42, 0.16), transparent 55%),
+    radial-gradient(900px 500px at 95% 0%, rgba(15, 107, 92, 0.18), transparent 50%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  font-family: var(--font-body), var(--font-thai), "Noto Sans Thai", sans-serif;
+}
+
+a {
+  color: var(--band-deep);
+}
+
+.page {
+  width: min(920px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2.5rem 0 4rem;
+}
+
+.hero {
+  display: grid;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.brand {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.6rem, 8vw, 4.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.lede {
+  margin: 0;
+  max-width: 36rem;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.station-shell {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.station-form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field span {
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+
+.field-row {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .field-row {
+    grid-template-columns: 1.2fr 0.8fr 0.8fr;
+  }
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  border-radius: 0.55rem;
+  padding: 0.75rem 0.85rem;
+  font: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--band);
+  outline-offset: 1px;
+}
+
+.cta {
+  justify-self: start;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--band) 0%, var(--band-deep) 100%);
+  color: white;
+  font-weight: 650;
+  padding: 0.9rem 1.35rem;
+  cursor: pointer;
+  box-shadow: 0 10px 30px var(--glow);
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.cta:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.cta:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.error {
+  margin: 0;
+  color: #9f1d1d;
+}
+
+.result {
+  display: grid;
+  gap: 0.9rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  animation: rise 420ms ease both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.result-head h2 {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.55rem;
+}
+
+.badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+}
+
+.badge-demo {
+  background: rgba(212, 85, 42, 0.15);
+  color: var(--signal);
+}
+
+.badge-live {
+  background: rgba(15, 107, 92, 0.16);
+  color: var(--band-deep);
+}
+
+.meta {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.lyrics {
+  margin: 0;
+  white-space: pre-wrap;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 1rem 1.1rem;
+  line-height: 1.55;
+  font-family: var(--font-body), var(--font-thai), "Noto Sans Thai", sans-serif;
+  max-height: 28rem;
+  overflow: auto;
+}
+
+.tracks {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.track {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.track-source {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.track audio {
+  width: min(100%, 420px);
+}
+
+.muted {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.notes {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--ink-soft);
+}
+
+.footer-note {
+  margin-top: 2.5rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
